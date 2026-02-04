@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Estabelecimentos</title>
+  <link rel="stylesheet" href="estabelecimentos.css">
+</head>
+<body>
+  <!-- Botão de retorno -->
+  <button class="btn-retorno" onclick="window.history.back()">← Voltar</button>
+
+  <!-- Lista dinâmica de estabelecimentos -->
+  <div id="listaEstabelecimentos" class="lista"></div>
+
+  <script>
+    // Pega o serviço da URL
+    const params = new URLSearchParams(window.location.search);
+    const servico = params.get("servico");
+
+    // Buscar estabelecimentos que oferecem o serviço
+    async function carregarEstabelecimentos() {
+      try {
+        // Usando caminho relativo (funciona local e no Render)
+        const response = await fetch(`/estabelecimentos?servico=${encodeURIComponent(servico)}`);
+        const estabelecimentos = await response.json();
+
+        const listaDiv = document.getElementById("listaEstabelecimentos");
+        listaDiv.innerHTML = `<h2>Estabelecimentos que oferecem ${servico}:</h2>`;
+
+        if (estabelecimentos.length === 0) {
+          listaDiv.innerHTML += "<p>Nenhum estabelecimento cadastrado para este serviço.</p>";
+          return;
+        }
+
+        estabelecimentos.forEach(est => {
+          const card = document.createElement("div");
+          card.className = "card-estabelecimento";
+          card.innerHTML = `
+            <h3>${est.nome}</h3>
+            <p><strong>Endereço:</strong> ${est.endereco}</p>
+            <p><strong>WhatsApp:</strong> ${est.whatsapp}</p>
+            <button onclick="agendar('${servico}', ${est.id})">Agendar</button>
+          `;
+          listaDiv.appendChild(card);
+        });
+      } catch (err) {
+        console.error(err);
+        alert("Erro ao buscar estabelecimentos");
+      }
+    }
+
+    carregarEstabelecimentos();
+
+    // Criar agendamento
+    async function agendar(servico, estabelecimentoId) {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Você precisa estar logado!");
+        window.location.href = "login.html";
+        return;
+      }
+
+      const data = prompt("Digite a data (YYYY-MM-DD):");
+      const hora = prompt("Digite a hora (HH:MM):");
+
+      try {
+        // Usando caminho relativo (funciona local e no Render)
+        const response = await fetch("/agendamentos", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+          },
+          body: JSON.stringify({ data, hora, descricao: servico, estabelecimento_id: estabelecimentoId })
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.mensagem);
+        } else {
+          alert("Erro: " + result.erro);
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Erro ao conectar com servidor");
+      }
+    }
+  </script>
+</body>
+</html>

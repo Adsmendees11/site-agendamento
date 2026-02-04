@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Área do Usuário</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f5f5f5;
+    }
+
+    /* Barra superior */
+    .topbar {
+      display: flex;
+      justify-content: flex-end; /* saudação + menu à direita */
+      align-items: center;
+      background: #2c3e50;
+      color: white;
+      padding: 15px 25px;
+      position: relative;
+      flex-wrap: wrap; /* permite quebrar linha em telas pequenas */
+    }
+
+    #saudacao {
+      font-weight: 600;
+      margin-right: 15px; /* espaço entre nome e menu */
+    }
+
+    .menu {
+      font-size: 1.5em;
+      cursor: pointer;
+      position: relative;
+    }
+
+    /* Dropdown escondido */
+    .dropdown {
+      display: none;
+      position: absolute;
+      right: 25px;
+      top: 60px;
+      background: #34495e;
+      padding: 10px;
+      border-radius: 6px;
+      min-width: 120px;
+    }
+
+    .dropdown button {
+      width: 100%;
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .dropdown button:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* Opções principais */
+    .opcoes {
+      text-align: center;
+      margin-top: 100px;
+      padding: 0 20px;
+    }
+
+    .opcoes h2 {
+      margin-bottom: 30px;
+      color: #2c3e50;
+    }
+
+    .opcoes button {
+      margin: 15px;
+      padding: 15px 30px;
+      font-size: 1.1em;
+      background-color: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .opcoes button:hover {
+      background-color: #219150;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .topbar {
+        justify-content: space-between; /* saudação à esquerda, menu à direita */
+      }
+
+      #saudacao {
+        margin: 0 0 10px 0;
+      }
+
+      .dropdown {
+        right: 15px;
+        top: 100%;
+      }
+
+      .opcoes {
+        margin-top: 60px;
+      }
+
+      .opcoes button {
+        display: block;
+        width: 100%;
+        max-width: 300px;
+        margin: 10px auto;
+        font-size: 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Barra superior -->
+  <div class="topbar">
+    <div id="saudacao">Olá, Usuário</div>
+    <div class="menu" onclick="toggleMenu()">☰
+      <div id="menuDropdown" class="dropdown">
+        <button onclick="sair()">Sair</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Opções principais -->
+  <div class="opcoes">
+    <h2>Escolha sua área</h2>
+    <button onclick="window.location.href='agendamento.html'">Marcar horário</button>
+    <button onclick="window.location.href='profissional.html'">Área do Profissional</button>
+  </div>
+
+  <script>
+    // Verificação de login
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Você precisa estar logado!");
+      window.location.href = "login.html";
+    }
+
+    // Saudação personalizada
+    const nome = localStorage.getItem("nome");
+    if (nome) {
+      document.getElementById("saudacao").textContent = "Olá, " + nome;
+    }
+
+    function toggleMenu() {
+      const menu = document.getElementById("menuDropdown");
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+
+    // Fecha o menu se clicar fora
+    document.addEventListener("click", (event) => {
+      const menu = document.getElementById("menuDropdown");
+      const menuButton = document.querySelector(".menu");
+      if (menu.style.display === "block" && !menu.contains(event.target) && !menuButton.contains(event.target)) {
+        menu.style.display = "none";
+      }
+    });
+
+    function sair() {
+      localStorage.clear();
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

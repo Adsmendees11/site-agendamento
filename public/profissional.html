@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Área do Profissional</title>
+  <link rel="stylesheet" href="profissional.css">
+</head>
+<body>
+  
+<!-- Botão de retorno -->
+<button class="btn-retorno" onclick="window.history.back()">← Voltar</button>
+
+  <h1>Área do Profissional</h1>
+
+  <!-- Dados do estabelecimento -->
+  <div id="meuEstabelecimento"></div>
+  <button id="botaoEditar" style="display:none;">Editar</button>
+
+  <!-- Formulário de cadastro/edição -->
+  <form id="cadastroEstabelecimento" style="display:none;">
+    <label for="nome">Nome do Estabelecimento:</label>
+    <input type="text" id="nome" name="nome" required>
+
+    <label for="endereco">Endereço:</label>
+    <input type="text" id="endereco" name="endereco" required>
+
+    <label for="whatsapp">WhatsApp:</label>
+    <input type="text" id="whatsapp" name="whatsapp" required>
+
+    <h3>Serviços oferecidos:</h3>
+    <label><input type="checkbox" name="servicos" value="Barbeiro"> Barbeiro</label><br>
+    <label><input type="checkbox" name="servicos" value="Manicure"> Manicure</label><br>
+    <label><input type="checkbox" name="servicos" value="Pedicure"> Pedicure</label><br>
+    <label><input type="checkbox" name="servicos" value="Sobrancelha"> Sobrancelha</label><br>
+    <label><input type="checkbox" name="servicos" value="Outro"> Outro</label><br>
+
+    <button type="submit" id="botaoSalvar">Salvar</button>
+  </form>
+
+  <!-- Lista de agendamentos -->
+  <h2>Meus Agendamentos</h2>
+  <div id="meusAgendamentos"></div>
+
+  <script>
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Você precisa estar logado!");
+      window.location.href = "login.html";
+    }
+
+    let modoEdicao = false;
+
+    // Carregar dados do estabelecimento do usuário
+    async function carregarEstabelecimento() {
+      const response = await fetch("/estabelecimentos/me", {
+        headers: { "Authorization": "Bearer " + token }
+      });
+      const data = await response.json();
+
+      const form = document.getElementById("cadastroEstabelecimento");
+      const botaoEditar = document.getElementById("botaoEditar");
+
+      if (data && data.nome) {
+        modoEdicao = true;
+        document.getElementById("meuEstabelecimento").innerHTML = `
+          <h3>Estabelecimento cadastrado:</h3>
+          <p><strong>Nome:</strong> ${data.nome}</p>
+          <p><strong>Endereço:</strong> ${data.endereco}</p>
+          <p><strong>WhatsApp:</strong> ${data.whatsapp}</p>
+          <p><strong>Serviços:</strong> ${data.servicos}</p>
+        `;
+
+        form.style.display = "none";
+        botaoEditar.style.display = "inline-block";
+
+        document.getElementById("nome").value = data.nome;
+        document.getElementById("endereco").value = data.endereco;
+        document.getElementById("whatsapp").value = data.whatsapp;
+
+        const servicosArray = data.servicos.split(", ");
+        servicosArray.forEach(servico => {
+          const checkbox = document.querySelector(`input[name='servicos'][value='${servico}']`);
+          if (checkbox) checkbox.checked = true;
+        });
+
+        document.getElementById("botaoSalvar").textContent = "Salvar alterações";
+      } else {
+        form.style.display = "block";
+        botaoEditar.style.display = "none";
+        document.getElementById("botaoSalvar").textContent = "Salvar";
+      }
+    }
+
+    document.getElementById("botaoEditar").addEventListener("click", () => {
+      document.getElementById("cadastroEstabelecimento").style.display = "block";
+      document.getElementById("botaoEditar").style.display = "none";
+    });
+
+    // Salvar ou editar estabelecimento
+    document.getElementById("cadastroEstabelecimento").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const nome = document.getElementById("nome").value.trim();
+      const endereco = document.getElementById("endereco").value.trim();
+      const whatsapp = document.getElementById("whatsapp").value.trim();
+      const servicosSelecionados = Array.from(document.querySelectorAll("input[name='servicos']:checked"))
+        .map(el => el.value)
+        .join(", ");
+
+      if (!nome || !endereco || !whatsapp) {
+        alert("Preencha todos os campos obrigatórios.");
+        return;
+      }
+
+      const metodo = modoEdicao ? "PUT" : "POST";
+
+      const response = await fetch("/estabelecimentos", {
+        method: metodo,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({ nome, endereco, whatsapp, servicos: servicosSelecionados })
+      });
+
+      const data = await response.json();
+      alert(data.mensagem || data.erro);
+      carregarEstabelecimento();
+    });
+
+    // Carregar agendamentos
+    async function carregarAgendamentos() {
+      const response = await fetch("/agendamentos/me", {
+        headers: { "Authorization": "Bearer " + token }
+      });
+      const data = await response.json();
+
+      const div = document.getElementById("meusAgendamentos");
+      div.innerHTML = "";
+      if (data.length === 0) {
+        div.innerHTML = "<p>Nenhum agendamento encontrado.</p>";
+        return;
+      }
+
+      data.forEach(a => {
+        div.innerHTML += `
+          <div>
+            <p><strong>Cliente:</strong> ${a.cliente_nome}</p>
+            <p><strong>Data:</strong> ${a.data}</p>
+            <p><strong>Hora:</strong> ${a.hora}</p>
+            <p><strong>Serviço:</strong> ${a.descricao}</p>
+          </div>
+          <hr>
+        `;
+      });
+    }
+
+    carregarEstabelecimento();
+    carregarAgendamentos();
+  </script>
+</body>
+</html>

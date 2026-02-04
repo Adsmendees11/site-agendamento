@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .sucesso {
+      font-size: 1.2em;
+      color: green;
+      font-weight: bold;
+      margin: 15px 0;
+      text-align: center;
+    }
+    .erro {
+      font-size: 1.1em;
+      color: red;
+      font-weight: bold;
+      margin: 15px 0;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Login</h1>
+    <form id="formLogin">
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="senha" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+
+    <!-- Mensagens -->
+    <div id="mensagemSucesso" class="sucesso" style="display:none;">
+      Login realizado com sucesso!
+    </div>
+    <div id="mensagemErro" class="erro" style="display:none;"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("formLogin");
+    const mensagemSucesso = document.getElementById("mensagemSucesso");
+    const mensagemErro = document.getElementById("mensagemErro");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const senha = document.getElementById("senha").value.trim();
+
+      if (!email || !senha) {
+        mensagemErro.textContent = "Preencha todos os campos.";
+        mensagemErro.style.display = "block";
+        return;
+      }
+
+      try {
+        // Usando caminho relativo (funciona local e no Render)
+        const response = await fetch("/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, senha })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.token) {
+          // Salva dados no localStorage
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("role", data.role);
+          localStorage.setItem("nome", data.nome);
+
+          // Mostra mensagem de sucesso
+          mensagemErro.style.display = "none";
+          mensagemSucesso.style.display = "block";
+
+          // Aguarda 2 segundos antes de redirecionar
+          setTimeout(() => {
+            window.location.href = "dashboard.html";
+          }, 2000);
+        } else {
+          mensagemSucesso.style.display = "none";
+          mensagemErro.textContent = data.erro || "Erro ao fazer login.";
+          mensagemErro.style.display = "block";
+        }
+      } catch (err) {
+        mensagemSucesso.style.display = "none";
+        mensagemErro.textContent = "Erro ao conectar com o servidor.";
+        mensagemErro.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>

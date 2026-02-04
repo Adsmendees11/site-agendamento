@@ -1,0 +1,141 @@
+/* Container principal */
+body {
+  font-family: Arial, sans-serif;
+  margin: 25px;
+  background-color: #f5f5f5;
+  padding: 20px;
+  color: #2c3e50;
+}
+
+/* Botão de retorno no topo */
+.btn-retorno {
+  position: absolute;       /* fixa no canto superior */
+  top: 20px;
+  left: 20px;
+  background: #2c3e50;      /* mesma cor da topbar */
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.3s ease;
+}
+
+.btn-retorno:hover {
+  background: #34495e;      /* tom mais claro ao passar o mouse */
+}
+
+/* Títulos */
+h1, h2, h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+/* Card de informações do estabelecimento */
+#meuEstabelecimento {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* Botão Editar */
+#botaoEditar {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-bottom: 20px;
+}
+#botaoEditar:hover {
+  background: #2980b9;
+}
+
+/* Formulário de cadastro/edição */
+form {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+form label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+  color: #34495e;
+}
+
+form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  transition: border 0.3s ease;
+}
+form input[type="text"]:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Checkboxes */
+form input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/* Botão Salvar */
+#botaoSalvar {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+#botaoSalvar:hover {
+  background: #1e8449;
+}
+
+/* Lista de agendamentos */
+#meusAgendamentos div {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 15px;
+  margin-bottom: 15px;
+}
+#meusAgendamentos p {
+  margin: 5px 0;
+}
+
+hr {
+  display: none;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+  h1 {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+  form {
+    padding: 15px;
+  }
+  #botaoSalvar, #botaoEditar {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    font-size: 1rem;
+  }
+}
