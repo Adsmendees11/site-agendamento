@@ -1,7 +1,8 @@
-
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+require('dotenv').config(); // carrega variáveis do .env
+
 const app = express();
 
 // Se não tiver JWT_SECRET definido, usa um padrão
