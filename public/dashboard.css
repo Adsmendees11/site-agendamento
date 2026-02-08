@@ -1,0 +1,129 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  background-color: #ffffff; /* fundo branco predominante */
+  color: #2c3e50;
+}
+
+/* Barra superior */
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background: #2c3e50;
+  color: #fff;
+  padding: 15px 25px;
+  position: relative;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+#saudacao {
+  font-weight: 500;
+  font-size: 1.2em;
+}
+
+.menu {
+  font-size: 1.5em;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Dropdown */
+.dropdown {
+  position: absolute;
+  right: 0;
+  top: 60px;
+
+  background-color: #ffffff;
+  padding: 12px 10px;
+  border-radius: 8px;
+  min-width: 180px;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+
+  opacity: 0;
+  transform: translateY(-6px);
+  pointer-events: none;
+
+  transition: opacity 0.2s ease, transform 0.2s ease;
+
+  display: flex;              /* 🔹 transforma em flex container */
+  justify-content: flex-start; /* mantém itens alinhados à esquerda por padrão */
+}
+
+.dropdown.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Botão dentro do dropdown */
+.dropdown button {
+  background-color: #2c3e50;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dropdown button:hover {
+  background-color: #1c2631;
+}
+
+/* Apenas o botão "Sair" vai para a direita */
+.btn-sair {
+  margin-left: auto;   /* 🔹 empurra o botão para a direita */
+}
+
+
+/* Opções principais */
+.opcoes {
+  text-align: center;
+  margin-top: 80px;
+  padding: 0 20px;
+}
+
+.opcoes h2 {
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.opcoes button {
+  margin: 15px;
+  padding: 15px 30px;
+  font-size: 1.1em;
+  background-color: #2c3e50; /* botão institucional */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.opcoes button:hover {
+  background-color: #1a252f;
+  transform: scale(1.03);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .topbar {
+    justify-content: flex-end; /* mantém saudação e menu à direita */
+  }
+  
+  .opcoes {
+    margin-top: 60px;
+  }
+
+  .opcoes button {
+    display: block;
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+    font-size: 1em;
+  }
+}

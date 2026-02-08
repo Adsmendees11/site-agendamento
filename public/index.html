@@ -3,21 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro</title>
+  <title>Sistema de Agendamento - Cadastro</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .sucesso {
+      font-size: 1.1em;
+      color: #2c3e50;
+      font-weight: 600;
+      margin: 15px 0;
+      text-align: center;
+    }
+    .erro {
+      font-size: 1.1em;
+      color: #e74c3c;
+      font-weight: 600;
+      margin: 15px 0;
+      text-align: center;
+    }
+    .subtitulo {
+      font-size: 0.95em;
+      color: #555;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
+    <h1>Crie sua conta</h1>
+    <p class="subtitulo">Agende seus horários com praticidade e estilo</p>
+
     <form id="formCadastro">
-      <input type="text" id="nome" placeholder="Nome" required>
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="senha" placeholder="Senha" required>
+      <input type="text" id="nome" placeholder="Digite seu nome" required>
+      <input type="email" id="email" placeholder="Digite seu e-mail" required>
+      <input type="password" id="senha" placeholder="Crie uma senha segura" required>
       <button type="submit">Cadastrar</button>
     </form>
+
+    <!-- Mensagens -->
     <p id="mensagem"></p>
 
-    <div style="margin-top:20px;">
-      <p>Já tem conta? <a href="login.html">Clique aqui para fazer login</a></p>
+    <div style="margin-top:20px; text-align:center;">
+      <p>Já tem conta? <a href="login.html">Acesse aqui</a></p>
     </div>
   </div>
 
@@ -34,11 +61,11 @@
 
       if (!nome || !email || !senha) {
         mensagem.textContent = "Preencha todos os campos.";
+        mensagem.className = "erro";
         return;
       }
 
       try {
-        // Usando caminho relativo (funciona local e no Render)
         const response = await fetch("/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -49,14 +76,18 @@
         mensagem.textContent = data.mensagem || data.erro;
 
         if (response.ok && data.mensagem === "Usuário cadastrado com sucesso!") {
+          mensagem.className = "sucesso";
           form.style.display = "none";
           setTimeout(() => {
             window.location.href = "login.html";
           }, 2000);
+        } else {
+          mensagem.className = "erro";
         }
       } catch (err) {
         console.error(err);
         mensagem.textContent = "Erro ao conectar com o servidor.";
+        mensagem.className = "erro";
       }
     });
   </script>

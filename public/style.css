@@ -1,71 +1,30 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #06148f54;
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(135deg, #000000, #355064); /* fundo neutro e moderno */
   margin: 0;
   min-height: 100vh;
-}
-
-/* Barra superior fixa no topo */
-.topbar {
   display: flex;
-  justify-content: space-between; /* menu à esquerda, saudação + botão à direita */
   align-items: center;
-  background: #2c3e50;
-  color: white;
-  padding: 15px 25px;
-  position: fixed;   /* fixa no topo */
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+  justify-content: center;
 }
 
-.menu {
-  font-size: 1.5em;
-  cursor: pointer;
-}
-
-#saudacao {
-  margin-left: auto;
-  margin-right: 15px;
-  font-weight: 600;
-}
-
-.topbar button {
-  background: transparent;
-  color: white;
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.topbar button:hover {
-  background: rgba(255,255,255,0.1);
-}
-
-/* Container central */
+/* Card de login */
 .container {
   background: #fff;
-  padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  width: 300px;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 360px; /* responsivo */
   text-align: center;
-
-  /* centraliza no meio da tela */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  /* espaço extra para não ficar escondido atrás da topbar */
-  margin-top: 40px;
+  margin: 0 20px; /* margem lateral em telas pequenas */
 }
 
 h1 {
-  text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: #2c3e50;
+  font-weight: 600;
 }
 
 form {
@@ -73,26 +32,52 @@ form {
   flex-direction: column;
 }
 
-input, select, button {
+input {
   margin-bottom: 15px;
-  padding: 10px;
+  padding: 12px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  width: 100%;
+}
+
+input:focus {
+  border-color: #2c3e50;
+  box-shadow: 0 0 6px rgba(44,62,80,0.2);
+  outline: none;
 }
 
 button {
-  background: #4CAF50;
-  color: white;
+  background: #2c3e50; /* azul escuro institucional */
+  color: #fff;
   border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  width: 100%;
 }
 
 button:hover {
-  background: #45a049;
+  background: #1a252f;
+  transform: scale(1.02);
 }
 
 #mensagem {
-  text-align: center;
-  margin-top: 10px;
+  margin-top: 15px;
   font-weight: bold;
+  color: #333;
+}
+
+/* Responsividade */
+@media (max-width: 400px) {
+  h1 {
+    font-size: 20px;
+  }
+  button {
+    font-size: 14px;
+    padding: 12px;
+  }
 }
