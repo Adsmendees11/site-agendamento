@@ -128,6 +128,7 @@ hr {
   h1 {
     font-size: 1.6rem;
     text-align: center;
+    padding: 10px;
   }
   form {
     padding: 15px;

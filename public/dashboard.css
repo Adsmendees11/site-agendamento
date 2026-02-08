@@ -1,26 +1,24 @@
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: Arial, sans-serif;
   margin: 0;
   background-color: #ffffff; /* fundo branco predominante */
-  color: #2c3e50;
 }
 
 /* Barra superior */
+
 .topbar {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-end;
   background: #2c3e50;
-  color: #fff;
+  color: white;
   padding: 15px 25px;
   position: relative;
-  flex-wrap: wrap;
-  gap: 15px;
 }
 
 #saudacao {
-  font-weight: 500;
-  font-size: 1.2em;
+  font-weight: 600;
+  margin-right: 15px;
 }
 
 .menu {
@@ -29,54 +27,38 @@ body {
   position: relative;
 }
 
+
 /* Dropdown */
 .dropdown {
+  display: none;
   position: absolute;
-  right: 0;
+  right: 25px;
   top: 60px;
-
-  background-color: #ffffff;
-  padding: 12px 10px;
-  border-radius: 8px;
-  min-width: 180px;
-
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-
-  opacity: 0;
-  transform: translateY(-6px);
-  pointer-events: none;
-
-  transition: opacity 0.2s ease, transform 0.2s ease;
-
-  display: flex;              /* 🔹 transforma em flex container */
-  justify-content: flex-start; /* mantém itens alinhados à esquerda por padrão */
+  background: #34495e;
+  padding: 10px;
+  border-radius: 6px;
+  min-width: 120px;
+}
+.dropdown button {
+  width: 100%;
+  background: transparent;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+}
+.dropdown button:hover {
+  background: rgba(255,255,255,0.1);
 }
 
 .dropdown.show {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-/* Botão dentro do dropdown */
-.dropdown button {
-  background-color: #2c3e50;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 10px 15px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.dropdown button:hover {
-  background-color: #1c2631;
-}
-
-/* Apenas o botão "Sair" vai para a direita */
-.btn-sair {
-  margin-left: auto;   /* 🔹 empurra o botão para a direita */
-}
 
 
 /* Opções principais */

@@ -39,7 +39,7 @@ input {
   border-radius: 8px;
   font-size: 14px;
   transition: border-color 0.3s, box-shadow 0.3s;
-  width: 100%;
+  width: 91%;
 }
 
 input:focus {
@@ -57,7 +57,9 @@ button {
   font-size: 16px;
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
-  width: 100%;
+  width: 250px;
+  display: block;
+  margin: 0 auto;
 }
 
 button:hover {
@@ -79,5 +81,10 @@ button:hover {
   button {
     font-size: 14px;
     padding: 12px;
+  }
+  .container {
+    padding: 12px;
+    max-width: 90%; /* ocupa quase toda a tela sem exagero */
+    border-radius: 8px;
   }
 }
