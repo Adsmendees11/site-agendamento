@@ -24,7 +24,7 @@ body {
   width: 100%;              /* adapta à tela */
   max-width: 350px;         /* limite máximo */
   position: absolute;
-  top: 20px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
 }
