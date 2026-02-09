@@ -10,12 +10,17 @@
   <!-- Barra superior -->
   <div class="topbar">
     <div id="saudacao">Olá, Usuário</div>
-    <div class="menu" onclick="toggleMenu()">☰
-      <div id="menuDropdown" class="dropdown">
-        <button onclick="sair()">Sair</button>
-      </div>
-    </div>
+    <div class="menu" onclick="toggleMenu()">☰</div>
   </div>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <h3 id="sidebarSaudacao">Olá, Usuário</h3>
+    <button onclick="sair()">Sair</button>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
 
   <!-- Opções principais -->
   <div class="opcoes">
@@ -36,22 +41,17 @@
     const nome = localStorage.getItem("nome");
     if (nome) {
       document.getElementById("saudacao").textContent = "Olá, " + nome;
+      document.getElementById("sidebarSaudacao").textContent = "Olá, " + nome;
     }
 
-    // Alterna o menu dropdown
+    // Alterna o menu lateral
     function toggleMenu() {
-      const menu = document.getElementById("menuDropdown");
-      menu.classList.toggle("show");
-    }
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
 
-    // Fecha o menu se clicar fora
-    document.addEventListener("click", (event) => {
-      const menu = document.getElementById("menuDropdown");
-      const menuButton = document.querySelector(".menu");
-      if (menu.classList.contains("show") && !menu.contains(event.target) && !menuButton.contains(event.target)) {
-        menu.classList.remove("show");
-      }
-    });
+      sidebar.classList.toggle("show");
+      overlay.classList.toggle("show");
+    }
 
     // Função de sair
     function sair() {

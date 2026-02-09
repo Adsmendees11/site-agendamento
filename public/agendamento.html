@@ -12,12 +12,17 @@
     <button class="btn-retorno" onclick="voltar()">← Voltar</button>
     <div style="flex:1"></div>
     <div id="saudacao">Olá, Usuário</div>
-    <div class="menu" onclick="toggleMenu()">☰
-      <div id="menuDropdown" class="dropdown">
-        <button onclick="sair()">Sair</button>
-      </div>
-    </div>
+    <div class="menu" onclick="toggleMenu()">☰</div>
   </div>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <h3 id="sidebarSaudacao">Olá, Usuário</h3>
+    <button onclick="sair()">Sair</button>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
 
   <!-- Serviços disponíveis -->
   <div class="servicos">
@@ -51,27 +56,25 @@
     const nome = localStorage.getItem("nome");
     if (nome) {
       document.getElementById("saudacao").textContent = "Olá, " + nome;
+      document.getElementById("sidebarSaudacao").textContent = "Olá, " + nome;
     }
 
+    // Alterna o menu lateral
     function toggleMenu() {
-      const menu = document.getElementById("menuDropdown");
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+
+      sidebar.classList.toggle("show");
+      overlay.classList.toggle("show");
     }
 
-    // Fecha o menu se clicar fora
-    document.addEventListener("click", (event) => {
-      const menu = document.getElementById("menuDropdown");
-      const menuButton = document.querySelector(".menu");
-      if (menu.style.display === "block" && !menu.contains(event.target) && !menuButton.contains(event.target)) {
-        menu.style.display = "none";
-      }
-    });
-
+    // Função de sair
     function sair() {
       localStorage.clear();
       window.location.href = "login.html";
     }
 
+    // Função de voltar
     function voltar() {
       window.history.back();
     }

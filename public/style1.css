@@ -125,6 +125,72 @@ body {
   text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
 }
 
+
+
+/* Sidebar (menu lateral) */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 250px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+  transition: right 0.25s cubic-bezier(0.25, 0.8, 0.25, 1); /* mais suave */
+  padding: 20px;
+  z-index: 1001;
+  overflow-y: auto;
+}
+
+
+.sidebar h3 {
+  margin-top: 0;
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.sidebar button {
+  width: 100%;
+  background: #2c3e50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background 0.2s ease;
+}
+
+.sidebar button:hover {
+  background: #1a252f;
+}
+
+.sidebar.show {
+  right: 0; /* só aparece quando a classe show é adicionada */
+}
+
+/* Overlay escuro */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);/* fade-in mais suave */
+}
+
+
+.overlay.show {
+  display: block;
+  opacity: 1; /* fade-in suave */
+}
+
+
+
 /* Responsividade */
 @media (max-width: 600px) {
   .topbar {
