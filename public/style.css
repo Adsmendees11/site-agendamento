@@ -20,15 +20,14 @@ body {
   margin: 0 20px; /* margem lateral em telas pequenas */
 }
 
-
 .logo-top {
-  width: 350px;
+  width: 100%;              /* adapta à tela */
+  max-width: 350px;         /* limite máximo */
   position: absolute;
   top: 40px;
   left: 50%;
   transform: translateX(-50%);
 }
-
 
 h1 {
   margin-bottom: 15px;
@@ -49,7 +48,8 @@ input {
   border-radius: 8px;
   font-size: 14px;
   transition: border-color 0.3s, box-shadow 0.3s;
-  width: 91%;
+  width: 100%;              /* ocupa toda a largura */
+  box-sizing: border-box;   /* padding não quebra layout */
 }
 
 input:focus {
@@ -67,9 +67,11 @@ button {
   font-size: 16px;
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
-  width: 350px;
+  width: 100%;              /* ocupa toda a largura */
+  max-width: 350px;         /* limite máximo */
   display: block;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 button:hover {
@@ -85,16 +87,21 @@ button:hover {
 
 /* Responsividade */
 @media (max-width: 400px) {
+  .container {
+    padding: 20px;
+  }
+
   h1 {
     font-size: 20px;
   }
+
   button {
     font-size: 14px;
     padding: 12px;
   }
-  .container {
-    padding: 12px;
-    max-width: 90%; /* ocupa quase toda a tela sem exagero */
-    border-radius: 8px;
+
+  input {
+    font-size: 13px;
+    padding: 10px;
   }
 }
