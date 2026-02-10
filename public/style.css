@@ -11,22 +11,20 @@ body {
 /* Card de login */
 .container {
   background: #fff;
-  padding: 30px;
+  padding: 20px 15px 10px 15px;
   border-radius: 12px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.1);
   width: 100%;
-  max-width: 360px; /* responsivo */
+  max-width: 320px; /* container mais compacto */
   text-align: center;
   margin: 0 20px; /* margem lateral em telas pequenas */
 }
 
 .logo-top {
   width: 100%;              /* adapta à tela */
-  max-width: 350px;         /* limite máximo */
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+  max-width: 190px;         /* limite máximo */
+  display: block;
+  margin: 0 auto 20px;      /* centralizado e espaço inferior */
 }
 
 h1 {
