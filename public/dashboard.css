@@ -48,6 +48,7 @@ body {
   font-weight: 600;
 }
 
+
 .sidebar button {
   width: 100%;
   background: #2c3e50;
@@ -58,11 +59,24 @@ body {
   cursor: pointer;
   margin-top: 15px;
   transition: background 0.2s ease;
+
+  display: flex;              /* ativa flexbox */
+  align-items: center;        /* alinha verticalmente */
+  justify-content: flex-start;/* texto alinhado à esquerda */
+  gap: 8px;                   /* espaço entre ícone e texto */
 }
 
 .sidebar button:hover {
   background: #1a252f;
 }
+
+.sidebar button img {
+  width: 20px;                /* controla tamanho fixo do ícone */
+  height: 20px;
+  flex-shrink: 0;             /* impede que o ícone se deforme */
+}
+
+
 
 .sidebar.show {
   right: 0; /* só aparece quando a classe show é adicionada */
@@ -134,16 +148,5 @@ body {
     max-width: 300px;
     margin: 10px auto;
     font-size: 1em;
-  }
-
-  /* Sidebar ocupa mais espaço em telas pequenas */
-  .sidebar {
-    width: 70%;       /* ocupa 70% da tela */
-    max-width: 300px; /* nunca passa de 300px */
-    right: -100%;     /* totalmente fora da tela antes de abrir */
-  }
-
-  .sidebar.show {
-    right: 0; /* aparece corretamente ao clicar */
   }
 }

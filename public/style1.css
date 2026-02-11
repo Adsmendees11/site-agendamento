@@ -159,14 +159,26 @@ body {
   cursor: pointer;
   margin-top: 15px;
   transition: background 0.2s ease;
+
+  display: flex;              /* ativa flexbox */
+  align-items: center;        /* alinha verticalmente */
+  justify-content: flex-start;/* texto alinhado à esquerda */
+  gap: 8px;                   /* espaço entre ícone e texto */
 }
 
 .sidebar button:hover {
   background: #1a252f;
 }
 
+.sidebar button img {
+  width: 20px;                /* controla tamanho fixo do ícone */
+  height: 20px;
+  flex-shrink: 0;             /* impede que o ícone se deforme */
+}
+
+
 .sidebar.show {
-  right: 0; /* só aparece quando a classe show é adicionada */
+  right: 0;
 }
 
 /* Overlay escuro */
