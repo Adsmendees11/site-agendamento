@@ -31,7 +31,7 @@ body {
   position: fixed;
   top: 0;
   right: -100%;
-  width: 250px;
+  width: 150px;
   height: 100%;
   background: #fff;
   box-shadow: -2px 0 5px rgba(0,0,0,0.5);
@@ -54,7 +54,7 @@ body {
   background: #2c3e50;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 3px 25px;
   border-radius: 6px;
   cursor: pointer;
   margin-top: 15px;
@@ -71,8 +71,8 @@ body {
 }
 
 .sidebar button img {
-  width: 20px;                /* controla tamanho fixo do ícone */
-  height: 20px;
+  width: 30px;                /* controla tamanho fixo do ícone */
+  height: 30px;
   flex-shrink: 0;             /* impede que o ícone se deforme */
 }
 
